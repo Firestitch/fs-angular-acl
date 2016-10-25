@@ -1,0 +1,19 @@
+{
+  "name": "fs-angular-acl",
+  "description": "",
+  "main": [
+    "dist/acl.js"
+  ],
+  "authors": [
+    "Firestitch Inc."
+  ],
+  "dependencies": {
+  	"fs-angular-util": "latest"
+  },
+  "license": "MIT",
+  "ignore": [
+    "src",
+    ".gitignore"
+  ],
+  "private": false
+}

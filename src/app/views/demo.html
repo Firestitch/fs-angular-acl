@@ -1,0 +1,166 @@
+<h2>Logged In: {{loggedin}}</h2>
+<h2>Permissions: {{permissions}}</h2>
+
+<md-button ng-click="login()">Login</md-button>
+<md-button ng-click="logout()">Logout</md-button>
+
+
+<div fs-acl="frontend">Frontend</div>
+
+<div fs-acl fs-permission="donthavethispermission">I dont have</div>
+
+<div fs-acl fs-url="/demo/login">/demo/login</div>
+
+<div fs-acl fs-state="demopermission">Demo Permission State</div>
+<div fs-acl fs-url="/demopermission">Demo Permission URL</div>
+
+
+<div layout="row">
+
+	<div flex>
+		<h3>Permission Permission</h3>
+		<fs-acl-container fs-permission="profile">
+
+		    <form name="inputsForm" fs-validate>
+
+		        <md-datepicker-container class="md-block">
+		            <label>
+		                <md-icon>
+		                    today
+		                </md-icon>
+		                Date
+		            </label>
+		            <md-datepicker ng-model="myDate" required></md-datepicker>
+		        </md-datepicker-container>
+
+		        <md-input-container class="md-block">
+		            <label>
+		                <md-icon>
+		                    home
+		                </md-icon>
+		                Textarea
+		            </label>
+		            <textarea></textarea>
+		        </md-input-container>
+
+		        <md-input-container class="md-block">
+		            <label>
+		                <md-icon>
+		                    email
+		                </md-icon>
+		                Primary Email
+		            </label>
+		            <input type="text">
+		        </md-input-container>
+
+		        <md-input-container class="md-block">
+		            <label>State</label>
+		            <md-select ng-model="user.state">
+		                <md-option ng-repeat="state in [{ abbrev: 'CA' }, { abbrev: 'NY' }]" value="{{state.abbrev}}">
+		                    {{state.abbrev}}
+		                </md-option>
+		            </md-select>
+		        </md-input-container>
+
+	            <md-checkbox-container>
+	                <label>Checkboxes</label>
+	                <div layout="row">
+	                    <md-checkbox ng-model="$true" aria-label="Checkbox 1">
+	                        Checkbox 1
+	                    </md-checkbox>
+
+	                    <md-checkbox ng-model="$true" aria-label="Checkbox 2">
+	                        Checkbox 2
+	                    </md-checkbox>
+	                </div>
+	            </md-checkbox-container>
+
+	            <md-radiobutton-container>
+	                <label>Radio Button</label>
+	                <md-radio-group ng-model="data.default" ng-init="data.default = 'Red'" layout="row">
+	                    <md-radio-button value="Red">Red</md-radio-button>
+	                    <md-radio-button value="Green">Green</md-radio-button>
+	                    <md-radio-button value="Blue">Blue</md-radio-button>
+	                </md-radio-group>
+	            </md-radiobutton-container>
+
+	            <md-button class="md-raised">Submit</md-button>
+		    </form>
+
+		</fs-acl-container>
+	</div>
+	<div flex="10"></div>
+	<div flex>
+		<h3>Permission Frontend</h3>
+
+		<fs-acl-container fs-permission="frontend">
+
+		    <form name="inputsForm" fs-validate>
+
+		        <md-datepicker-container class="md-block">
+		            <label>
+		                <md-icon>
+		                    today
+		                </md-icon>
+		                Date
+		            </label>
+		            <md-datepicker ng-model="myDate" required></md-datepicker>
+		        </md-datepicker-container>
+
+		        <md-input-container class="md-block">
+		            <label>
+		                <md-icon>
+		                    home
+		                </md-icon>
+		                Textarea
+		            </label>
+		            <textarea></textarea>
+		        </md-input-container>
+
+		        <md-input-container class="md-block">
+		            <label>
+		                <md-icon>
+		                    email
+		                </md-icon>
+		                Primary Email
+		            </label>
+		            <input type="text">
+		        </md-input-container>
+
+		        <md-input-container class="md-block">
+		            <label>State</label>
+		            <md-select ng-model="user.state">
+		                <md-option ng-repeat="state in [{ abbrev: 'CA' }, { abbrev: 'NY' }]" value="{{state.abbrev}}">
+		                    {{state.abbrev}}
+		                </md-option>
+		            </md-select>
+		        </md-input-container>
+
+	            <md-checkbox-container>
+	                <label>Checkboxes</label>
+	                <div layout="row">
+	                    <md-checkbox ng-model="$true" aria-label="Checkbox 1">
+	                        Checkbox 1
+	                    </md-checkbox>
+
+	                    <md-checkbox ng-model="$true" aria-label="Checkbox 2">
+	                        Checkbox 2
+	                    </md-checkbox>
+	                </div>
+	            </md-checkbox-container>
+
+	            <md-radiobutton-container>
+	                <label>Radio Button</label>
+	                <md-radio-group ng-model="data.default" ng-init="data.default = 'Red'" layout="row">
+	                    <md-radio-button value="Red">Red</md-radio-button>
+	                    <md-radio-button value="Green">Green</md-radio-button>
+	                    <md-radio-button value="Blue">Blue</md-radio-button>
+	                </md-radio-group>
+	            </md-radiobutton-container>
+
+	            <md-button class="md-raised">Submit</md-button>
+		    </form>
+
+		</fs-acl-container>
+	</div>
+</div>

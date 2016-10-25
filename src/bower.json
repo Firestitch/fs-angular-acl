@@ -1,0 +1,23 @@
+{
+  "name": "fs-angular-acl",
+  "namespace": "acl",
+  "port": "5034",
+  "moduleName": "app",
+  "version": "0.0.0",
+  "appPath": "app",
+  "dependencies": {
+    "angular": "1.5.0",
+    "angular-material": "1.0.5",
+    "angular-ui-router": "0.2.15",
+    "fs-boilerplate-styles": "latest",
+    "fs-angular-util": "latest",
+    "fs-angular-alert": "latest"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.5.0",
+    "angular-scenario": "1.5.0"
+  },
+  "resolutions": {
+    "angular": "1.5.0"
+  }
+}
