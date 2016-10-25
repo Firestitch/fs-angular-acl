@@ -8,7 +8,7 @@
      * @param {string} fs-permission The permission to validate against
      */
     angular.module('fs-angular-acl',['fs-angular-util'])
-    .directive('fsAclContainer', function (aclService, fsACL, fsUtil) {
+    .directive('fsAclContainer', function (fsAcl, FSACL, fsUtil) {
 		return {
             restrict: 'E',
             scope: {
@@ -29,7 +29,7 @@
 	            		permissions = $scope.permission.split(',');
 	            	}
 
-	            	if(!aclService.permission(permissions,fsACL.ACCESS_WRITE)) {
+	            	if(!fsAcl.permission(permissions,FSACL.ACCESS_WRITE)) {
 	            		$scope.$parent.fsAclContainerDisabled[guid] = true;
 	    			}
 	           	}
@@ -45,7 +45,7 @@
      * @param {string} fs-state The state name that is used to search for the state which has the permissions to validate against
      * @param {string} fs-url The url that is used to search for the state which has the permissions to validate against
      */
-    .directive('fsAcl', function (aclService, $compile) {
+    .directive('fsAcl', function (fsAcl, $compile) {
         return {
             restrict: 'A',
             scope: {
@@ -67,21 +67,21 @@
             	}
 
         		if($scope.url) {
-        			var state = aclService.state({ url: $scope.url });
+        			var state = fsAcl.state({ url: $scope.url });
 
             		if(state && state.data && state.data.permissions) {
             			permissions = state.data.permissions;
             		}
 
             	} else if($scope.state) {
-            		var state = aclService.state({ state: $scope.state });
+            		var state = fsAcl.state({ state: $scope.state });
 
             		if(state && state.data && state.data.permissions) {
             			permissions = state.data.permissions;
             		}
             	}
 
-        		if(!permissions.length || !aclService.permission(permissions)) {
+        		if(!permissions.length || !fsAcl.permission(permissions)) {
         			el.css('display','none');
         		}
 

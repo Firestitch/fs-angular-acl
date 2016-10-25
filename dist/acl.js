@@ -9,7 +9,7 @@
      * @param {string} fs-permission The permission to validate against
      */
     angular.module('fs-angular-acl',['fs-angular-util'])
-    .directive('fsAclContainer', function (aclService, fsACL, fsUtil) {
+    .directive('fsAclContainer', function (fsAcl, FSACL, fsUtil) {
 		return {
             restrict: 'E',
             scope: {
@@ -30,7 +30,7 @@
 	            		permissions = $scope.permission.split(',');
 	            	}
 
-	            	if(!aclService.permission(permissions,fsACL.ACCESS_WRITE)) {
+	            	if(!fsAcl.permission(permissions,FSACL.ACCESS_WRITE)) {
 	            		$scope.$parent.fsAclContainerDisabled[guid] = true;
 	    			}
 	           	}
@@ -46,7 +46,7 @@
      * @param {string} fs-state The state name that is used to search for the state which has the permissions to validate against
      * @param {string} fs-url The url that is used to search for the state which has the permissions to validate against
      */
-    .directive('fsAcl', function (aclService, $compile) {
+    .directive('fsAcl', function (fsAcl, $compile) {
         return {
             restrict: 'A',
             scope: {
@@ -68,21 +68,21 @@
             	}
 
         		if($scope.url) {
-        			var state = aclService.state({ url: $scope.url });
+        			var state = fsAcl.state({ url: $scope.url });
 
             		if(state && state.data && state.data.permissions) {
             			permissions = state.data.permissions;
             		}
 
             	} else if($scope.state) {
-            		var state = aclService.state({ state: $scope.state });
+            		var state = fsAcl.state({ state: $scope.state });
 
             		if(state && state.data && state.data.permissions) {
             			permissions = state.data.permissions;
             		}
             	}
 
-        		if(!permissions.length || !aclService.permission(permissions)) {
+        		if(!permissions.length || !fsAcl.permission(permissions)) {
         			el.css('display','none');
         		}
 
@@ -94,19 +94,17 @@
     'use strict';
 
     angular.module('fs-angular-acl')
-    .constant('fsACL',
-    {
+    .constant('FSACL', {
     	ACCESS_READ: 5,
     	ACCESS_WRITE: 10,
     	ACCESS_ADMIN: 15
     })
 
-
     /**
      * @ngdoc service
      * @name fs.fsAcl
      */
-    .factory('fsAcl', function ($q, $location, $state, $urlMatcherFactory, fsACL) {
+    .factory('fsAcl', function ($q, $location, $state, $urlMatcherFactory, FSACL) {
 
     	var _states = [];
         var service = {
@@ -123,7 +121,8 @@
             state: state,
             write: write,
             read: read,
-            admin: admin
+            admin: admin,
+            init: init
         };
 
         return service;
@@ -276,33 +275,37 @@
          * @ngdoc method
          * @name read
          * @methodOf fs.fsAcl
-         * @description A helper function equivalent to permission(permission,fsACL.ACCESS_READ)
+         * @description A helper function equivalent to permission(permission,FSACL.ACCESS_READ)
          * @param {string|array} permission The permission or permissions to validate against
          */
         function read(permission) {
-        	return service.permission(permission,fsACL.ACCESS_READ);
+        	return service.permission(permission,FSACL.ACCESS_READ);
         }
 
         /**
          * @ngdoc method
          * @name write
          * @methodOf fs.fsAcl
-         * @description A helper function equivalent to permission(permission,fsACL.ACCESS_WRITE)
+         * @description A helper function equivalent to permission(permission,FSACL.ACCESS_WRITE)
          * @param {string|array} permission The permission or permissions to validate against
          */
         function write(permission) {
-        	return service.permission(permission,fsACL.ACCESS_WRITE);
+        	return service.permission(permission,FSACL.ACCESS_WRITE);
         }
 
         /**
          * @ngdoc method
          * @name admin
          * @methodOf fs.fsAcl
-         * @description A helper function equivalent to permission(permission,fsACL.ACCESS_ADMIN)
+         * @description A helper function equivalent to permission(permission,FSACL.ACCESS_ADMIN)
          * @param {string|array} permission The permission or permissions to validate against
          */
         function admin(permission) {
-        	return service.permission(permission,fsACL.ACCESS_ADMIN);
+        	return service.permission(permission,FSACL.ACCESS_ADMIN);
+        }
+
+        function init() {
+
         }
     });
 })();

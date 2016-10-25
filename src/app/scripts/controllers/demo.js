@@ -35,32 +35,32 @@
     	ACCESS_WRITE: 10,
     	ACCESS_ADMIN: 15
     })
-    .factory('aclService', function (fsAclService, $timeout, fsAlert, $state, $rootScope) {
+    .factory('aclService', function(fsAcl, $rootScope) {
 
-	    return angular.extend(fsAclService,{
-	    	permissions: function() {
-	    		return $rootScope.permissions;
-	    	},
-	    	isLoggedIn: function() {
-	    		return $rootScope.loggedin;
-	    	},
-	    	loggedInFail: function(redirect,state) {
-                fsAlert.error('Please login to access this page', { mode: 'toast' });
-                throw 'Access Service: Session do not exist';
-	    	},
-	    	requireFail: function(requested) {
-                $timeout(function() {
+		return angular.extend(fsAcl,{
+		    	permissions: function() {
+		    		return $rootScope.permissions;
+		    	},
+		    	isLoggedIn: function() {
+		    		return $rootScope.loggedin;
+		    	},
+		    	loggedInFail: function(redirect,state) {
+	                fsAlert.error('Please login to access this page', { mode: 'toast' });
+	                throw 'Access Service: Session do not exist';
+		    	},
+		    	requireFail: function(requested) {
+	                $timeout(function() {
 
-                    if(!requested) {
-                        requested = 'object';
-                    }
+	                    if(!requested) {
+	                        requested = 'object';
+	                    }
 
-                    fsAlert.error('You do not have permission to access this page');
-                });
+	                    fsAlert.error('You do not have permission to access this page');
+	                });
 
-                throw 'Access Service: Invalid page access';
-	    	}
-	    });
+	                throw 'Access Service: Invalid page access';
+		    	}
+		    });
     });
 })();
 

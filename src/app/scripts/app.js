@@ -48,7 +48,9 @@ angular
     });
 
 })
-.run(function ($rootScope, BOWER) {
+.run(function ($rootScope, BOWER, aclService) {
+
+	aclService.init();
 
 	$rootScope.loggedin = false;
 	$rootScope.permissions = [];
