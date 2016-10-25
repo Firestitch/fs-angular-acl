@@ -1,6 +1,12 @@
 (function () {
     'use strict';
 
+    /**
+     * @ngdoc directive
+     * @name fs.directives:fs-acl-container
+     * @restrict E
+     * @param {string} fs-permission The permission to validate against
+     */
     angular.module('fs-angular-acl',['fs-angular-util'])
     .directive('fsAclContainer', function (aclService, fsACL, fsUtil) {
 		return {
@@ -30,6 +36,15 @@
             }
         }
     })
+    /**
+     * @ngdoc directive
+     * @name fs.directives:fs-acl
+     * @restrict E
+     * @param {string} fs-acl The permission to validate against
+     * @param {string} fs-permission The permission to validate against
+     * @param {string} fs-state The state name that is used to search for the state which has the permissions to validate against
+     * @param {string} fs-url The url that is used to search for the state which has the permissions to validate against
+     */
     .directive('fsAcl', function (aclService, $compile) {
         return {
             restrict: 'A',

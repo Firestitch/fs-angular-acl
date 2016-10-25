@@ -12,9 +12,9 @@
 
     /**
      * @ngdoc service
-     * @name fs.fsAclService
+     * @name fs.fsAcl
      */
-    .factory('fsAclService', function ($q, $location, $state, $urlMatcherFactory, fsACL) {
+    .factory('fsAcl', function ($q, $location, $state, $urlMatcherFactory, fsACL) {
 
     	var _states = [];
         var service = {
@@ -39,7 +39,7 @@
         /**
          * @ngdoc method
          * @name loggedOut
-         * @methodOf fs.fsAclService
+         * @methodOf fs.fsAcl
          * @description If the user is logged in then certain pages will be bypassed.
          * @param {String} redirectTo Optional path to redirect to, defaults to '/'
          */
@@ -58,10 +58,10 @@
         /**
          * @ngdoc method
          * @name loggedIn
-         * @methodOf fs.fsAclService
+         * @methodOf fs.fsAcl
          * @description If the user is not logged in then certain pages will be inaccessible and loggedInFail() will be called
          * @param {object} [state] Current state
-        */
+         */
         function loggedIn(state) {
 
             return $q(function(resolve, reject) {
@@ -83,7 +83,13 @@
             });
         }
 
-   		 function states() {
+        /**
+         * @ngdoc method
+         * @name states
+         * @methodOf fs.fsAcl
+         * @description Caches and returns app states
+         */
+   		function states() {
 
 	        if(!_states.length) {
 
@@ -102,6 +108,14 @@
 	        return _states;
 	    }
 
+
+        /**
+         * @ngdoc method
+         * @name state
+         * @methodOf fs.fsAcl
+         * @description Searches states() based on a filter for a specific state and returns it
+         * @param {object} filter The filter used to search for the states. Possible filter keys are state url or state name
+         */
 	    function state(filter) {
 	    	var items = states();
 	        for (var i=0; i < items.length; i++) {
@@ -138,6 +152,14 @@
             return defer.promise;
         }
 
+        /**
+         * @ngdoc method
+         * @name permission
+         * @methodOf fs.fsAcl
+         * @description Checks if the permission/access combination are valid. Uses the permissions() function to check against.
+         * @param {string|array} permission The permission or permissions to validate against
+         * @param {string} access The access level to validate against. The default is read access
+         */
         function permission(perm,access) {
 
         	access = access || 5;
@@ -158,14 +180,35 @@
             return has_permission;
         }
 
+        /**
+         * @ngdoc method
+         * @name read
+         * @methodOf fs.fsAcl
+         * @description A helper function equivalent to permission(permission,fsACL.ACCESS_READ)
+         * @param {string|array} permission The permission or permissions to validate against
+         */
         function read(permission) {
         	return service.permission(permission,fsACL.ACCESS_READ);
         }
 
+        /**
+         * @ngdoc method
+         * @name write
+         * @methodOf fs.fsAcl
+         * @description A helper function equivalent to permission(permission,fsACL.ACCESS_WRITE)
+         * @param {string|array} permission The permission or permissions to validate against
+         */
         function write(permission) {
         	return service.permission(permission,fsACL.ACCESS_WRITE);
         }
 
+        /**
+         * @ngdoc method
+         * @name admin
+         * @methodOf fs.fsAcl
+         * @description A helper function equivalent to permission(permission,fsACL.ACCESS_ADMIN)
+         * @param {string|array} permission The permission or permissions to validate against
+         */
         function admin(permission) {
         	return service.permission(permission,fsACL.ACCESS_ADMIN);
         }
