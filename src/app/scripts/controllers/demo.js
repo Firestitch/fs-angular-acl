@@ -1,9 +1,8 @@
 (function () {
     'use strict';
 
-
-	angular.module('app')
-	  .controller('DemoCtrl', function ($scope, ACL, $rootScope, $stateParams, $location) {
+		angular.module('app')
+	  	.controller('DemoCtrl', function ($scope, ACL, $rootScope, $stateParams, $location) {
 
 		$rootScope.loggedin = false;
 	    $rootScope.permissions = {};
