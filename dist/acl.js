@@ -45,17 +45,34 @@
      * @param {string} fs-permission The permission to validate against
      * @param {string} fs-state The state name that is used to search for the state which has the permissions to validate against
      * @param {string} fs-url The url that is used to search for the state which has the permissions to validate against
+     * @param {string} fs-read When specified the access level is set to read
+     * @param {string} fs-write When specified the access level is set to write
+     * @param {string} fs-admin When specified the access level is set to admin
      */
-    .directive('fsAcl', function (fsAcl, $compile) {
+    .directive('fsAcl', function (fsAcl, FSACL) {
         return {
             restrict: 'A',
             scope: {
             	url: '@?fsUrl',
             	state: '@?fsState',
+            	access: '@?fsAccess',
             	permission: '@?fsPermission',
             	fsAcl: '@?fsAcl'
             },
-            link: function($scope, element) {
+            link: function($scope, element, attr) {
+
+            	if('fsRead' in attr) {
+            		$scope.access = FSACL.ACCESS_READ;
+            	}
+
+            	if('fsWrite' in attr) {
+            		$scope.access = FSACL.ACCESS_WRITE;
+            	}
+
+            	if('fsAdmin' in attr) {
+            		$scope.access = FSACL.ACCESS_ADMIN;
+            	}
+
             	var el = angular.element(element);
             	var permissions = [];
 
@@ -82,7 +99,7 @@
             		}
             	}
 
-        		if(!permissions.length || !fsAcl.permission(permissions)) {
+        		if(!fsAcl.permission(permissions,$scope.access)) {
         			el.css('display','none');
         		}
 
@@ -249,12 +266,25 @@
          * @methodOf fs.fsAcl
          * @description Checks if the permission/access combination are valid. Uses the permissions() function to check against.
          * @param {string|array} permission The permission or permissions to validate against
-         * @param {string} access The access level to validate against. The default is read access
+         * @param {string} access The access level to validate against.
          */
         function permission(perm,access) {
 
-        	access = access || 5;
         	var perms = angular.isArray(perm) ? perm : [perm];
+
+        	if(access=='read') {
+        		access = FSACL.ACCESS_READ;
+        	} else if(access=='write') {
+        		access = FSACL.ACCESS_WRITE;
+        	} else if(access=='admin') {
+        		access = FSACL.ACCESS_ADMIN;
+        	} else {
+        		access = access ? parseInt(access) : 0;
+        	}
+
+        	if(!perms.length) {
+        		return true;
+        	}
 
             var items = service.permissions();
             var perm;
@@ -304,9 +334,7 @@
         	return service.permission(permission,FSACL.ACCESS_ADMIN);
         }
 
-        function init() {
-
-        }
+        function init() {}
     });
 })();
 

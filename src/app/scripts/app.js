@@ -33,6 +33,13 @@ angular
         }
     })
 
+    .state('demoemptypermission', {
+        data: {
+        	permissions: []
+        }
+    })
+
+
 	.state('demourl', {
         url: '/demopermission',
         data: {

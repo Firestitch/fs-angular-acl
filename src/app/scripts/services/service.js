@@ -157,12 +157,25 @@
          * @methodOf fs.fsAcl
          * @description Checks if the permission/access combination are valid. Uses the permissions() function to check against.
          * @param {string|array} permission The permission or permissions to validate against
-         * @param {string} access The access level to validate against. The default is read access
+         * @param {string} access The access level to validate against.
          */
         function permission(perm,access) {
 
-        	access = access || 5;
         	var perms = angular.isArray(perm) ? perm : [perm];
+
+        	if(access=='read') {
+        		access = FSACL.ACCESS_READ;
+        	} else if(access=='write') {
+        		access = FSACL.ACCESS_WRITE;
+        	} else if(access=='admin') {
+        		access = FSACL.ACCESS_ADMIN;
+        	} else {
+        		access = access ? parseInt(access) : 0;
+        	}
+
+        	if(!perms.length) {
+        		return true;
+        	}
 
             var items = service.permissions();
             var perm;
@@ -212,8 +225,6 @@
         	return service.permission(permission,FSACL.ACCESS_ADMIN);
         }
 
-        function init() {
-
-        }
+        function init() {}
     });
 })();

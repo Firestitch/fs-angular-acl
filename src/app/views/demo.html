@@ -5,9 +5,18 @@
 <md-button ng-click="logout()">Logout</md-button>
 
 
+
+<div fs-acl fs-permission="frontend" fs-admin>Permission: Frontend, Access: Admin</div>
+<div fs-acl fs-permission="frontend" fs-read>Permission: Frontend, Access: Read</div>
+<div fs-acl fs-permission="frontend" fs-write>Permission: Frontend, Access: Write</div>
+<!--
+
+<div fs-acl fs-permission="frontend" fs-access="read">Permission: Frontend, Access: Admin</div>
+
 <div fs-acl="frontend">Frontend</div>
 
 <div fs-acl fs-permission="donthavethispermission">I dont have</div>
+<div fs-acl fs-state="demoemptypermission">No Permissions Set</div>
 
 <div fs-acl fs-url="/demo/login">/demo/login</div>
 
@@ -15,10 +24,12 @@
 <div fs-acl fs-url="/demopermission">Demo Permission URL</div>
 
 
+
+
 <div layout="row">
 
 	<div flex>
-		<h3>Permission Permission</h3>
+		<h3>Permission Profile</h3>
 		<fs-acl-container fs-permission="profile">
 
 		    <form name="inputsForm" fs-validate>
@@ -163,4 +174,4 @@
 
 		</fs-acl-container>
 	</div>
-</div>
+</div> -->
