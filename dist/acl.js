@@ -45,9 +45,12 @@
      * @param {string} fs-permission The permission to validate against
      * @param {string} fs-state The state name that is used to search for the state which has the permissions to validate against
      * @param {string} fs-url The url that is used to search for the state which has the permissions to validate against
-     * @param {string} fs-read When specified the access level is set to read
-     * @param {string} fs-write When specified the access level is set to write
-     * @param {string} fs-admin When specified the access level is set to admin
+     * @param {string} fs-read When specified the access level will check if has read access
+     * @param {string} fs-write When specified the access level will check if has write access
+     * @param {string} fs-admin When specified the access level will check if has admin access
+     * @param {string} fs-read-only When specified the access level will check for read access only
+     * @param {string} fs-write-only When specified the access level will check for write access only
+     * @param {string} fs-admin-only When specified the access level will check for admin access only
      */
     .directive('fsAcl', function (fsAcl, FSACL) {
         return {
@@ -61,16 +64,21 @@
             },
             link: function($scope, element, attr) {
 
-            	if('fsRead' in attr) {
+            	var options = {};
+            	if('fsRead' in attr || 'fsReadOnly' in attr) {
             		$scope.access = FSACL.ACCESS_READ;
             	}
 
-            	if('fsWrite' in attr) {
+            	if('fsWrite' in attr || 'fsWriteOnly' in attr) {
             		$scope.access = FSACL.ACCESS_WRITE;
             	}
 
-            	if('fsAdmin' in attr) {
+            	if('fsAdmin' in attr || 'fsAdminOnly' in attr) {
             		$scope.access = FSACL.ACCESS_ADMIN;
+            	}
+
+            	if('fsReadOnly' in attr || 'fsWriteOnly' in attr || 'fsAdminOnly' in attr) {
+            		options.inheritAccess = false;
             	}
 
             	var el = angular.element(element);
@@ -99,7 +107,7 @@
             		}
             	}
 
-        		if(!fsAcl.permission(permissions,$scope.access)) {
+        		if(!fsAcl.permission(permissions,$scope.access,options)) {
         			el.css('display','none');
         		}
 
@@ -267,9 +275,16 @@
          * @description Checks if the permission/access combination are valid. Uses the permissions() function to check against.
          * @param {string|array} permission The permission or permissions to validate against
          * @param {string} access The access level to validate against.
+         * @param {object} options The options for
+				<ul>
+					<li><label>inheritAccess</label> When validating the access and set to true any lower access levels are considered.
+													When set to false only the access level specified will be considered.</li>
+				</ul>
          */
-        function permission(perm,access) {
+        function permission(perm,access,options) {
 
+        	options = options || {};
+        	options.inheritAccess = options.inheritAccess===undefined ? true : options.inheritAccess;
         	var perms = angular.isArray(perm) ? perm : [perm];
 
         	if(access=='read') {
@@ -293,8 +308,8 @@
             for (var p=0; p < perms.length; p++) {
             	perm = items[perms[p]];
 
-            	if(perm && perm>=access) {
-            		has_permission = true;
+            	if(perm) {
+            		has_permission = (options.inheritAccess && perm>=access) || (!options.inheritAccess && perm==access);
             	}
             }
 

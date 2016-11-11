@@ -158,9 +158,16 @@
          * @description Checks if the permission/access combination are valid. Uses the permissions() function to check against.
          * @param {string|array} permission The permission or permissions to validate against
          * @param {string} access The access level to validate against.
+         * @param {object} options The options for
+				<ul>
+					<li><label>inheritAccess</label> When validating the access and set to true any lower access levels are considered.
+													When set to false only the access level specified will be considered.</li>
+				</ul>
          */
-        function permission(perm,access) {
+        function permission(perm,access,options) {
 
+        	options = options || {};
+        	options.inheritAccess = options.inheritAccess===undefined ? true : options.inheritAccess;
         	var perms = angular.isArray(perm) ? perm : [perm];
 
         	if(access=='read') {
@@ -184,8 +191,8 @@
             for (var p=0; p < perms.length; p++) {
             	perm = items[perms[p]];
 
-            	if(perm && perm>=access) {
-            		has_permission = true;
+            	if(perm) {
+            		has_permission = (options.inheritAccess && perm>=access) || (!options.inheritAccess && perm==access);
             	}
             }
 

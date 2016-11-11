@@ -4,11 +4,14 @@
 <md-button ng-click="login()">Login</md-button>
 <md-button ng-click="logout()">Logout</md-button>
 
-
-
 <div fs-acl fs-permission="frontend" fs-admin>Permission: Frontend, Access: Admin</div>
 <div fs-acl fs-permission="frontend" fs-read>Permission: Frontend, Access: Read</div>
 <div fs-acl fs-permission="frontend" fs-write>Permission: Frontend, Access: Write</div>
+
+<div fs-acl fs-permission="frontend" fs-admin-only>Permission: Frontend, Access: Only Admin</div>
+<div fs-acl fs-permission="frontend" fs-read-only>Permission: Frontend, Access: Only Read</div>
+<div fs-acl fs-permission="frontend" fs-write-only>Permission: Frontend, Access: Only Write</div>
+
 <!--
 
 <div fs-acl fs-permission="frontend" fs-access="read">Permission: Frontend, Access: Admin</div>
@@ -22,9 +25,6 @@
 
 <div fs-acl fs-state="demopermission">Demo Permission State</div>
 <div fs-acl fs-url="/demopermission">Demo Permission URL</div>
-
-
-
 
 <div layout="row">
 
