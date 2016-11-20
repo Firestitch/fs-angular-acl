@@ -12,7 +12,6 @@
 <div fs-acl fs-permission="frontend" fs-read-only>Permission: Frontend, Access: Only Read</div>
 <div fs-acl fs-permission="frontend" fs-write-only>Permission: Frontend, Access: Only Write</div>
 
-<!--
 
 <div fs-acl fs-permission="frontend" fs-access="read">Permission: Frontend, Access: Admin</div>
 
@@ -43,6 +42,8 @@
 		            </label>
 		            <md-datepicker ng-model="myDate" required></md-datepicker>
 		        </md-datepicker-container>
+
+		        <fs-time ng-model="time"></fs-time>
 
 		        <md-input-container class="md-block">
 		            <label>
@@ -118,6 +119,8 @@
 		            <md-datepicker ng-model="myDate" required></md-datepicker>
 		        </md-datepicker-container>
 
+		        <fs-time ng-model="time"></fs-time>
+
 		        <md-input-container class="md-block">
 		            <label>
 		                <md-icon>
@@ -174,4 +177,4 @@
 
 		</fs-acl-container>
 	</div>
-</div> -->
+</div>

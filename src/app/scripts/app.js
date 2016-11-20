@@ -6,7 +6,8 @@ angular
     'ui.router',
     'ngMaterial',
     'fs-angular-acl',
-    'fs-angular-alert'
+    'fs-angular-alert',
+    'fs-angular-time'
 ])
 .config(function ($stateProvider, $urlRouterProvider, ACL) {
 

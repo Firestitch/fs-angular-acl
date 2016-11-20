@@ -11,7 +11,8 @@
     "angular-ui-router": "0.2.15",
     "fs-boilerplate-styles": "latest",
     "fs-angular-util": "latest",
-    "fs-angular-alert": "latest"
+    "fs-angular-alert": "latest",
+    "fs-angular-time": "latest"
   },
   "devDependencies": {
     "angular-mocks": "1.5.0",

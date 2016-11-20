@@ -19,9 +19,9 @@
 
                 var guid = fsUtil.guid();
 
-	           	angular.element(element[0].querySelectorAll('textarea,input,md-select,md-checkbox,md-radio-button,md-datepicker,md-button')).attr('ng-disabled','fsAclContainerDisabled[\'' + guid + '\']');
+	           	angular.element(element[0].querySelectorAll('textarea,input,md-select,md-checkbox,md-radio-button,md-datepicker,md-button,fs-time')).attr('ng-disabled','fsAclContainerDisabled[\'' + guid + '\']');
 
-	           	return function ($scope, element, attrs, ctrl) {
+	           	return function ($scope, element, attrs, ctrl, transclude) {
 
 	           		$scope.$parent.fsAclContainerDisabled = $scope.$parent.fsAclContainerDisabled || {};
 
