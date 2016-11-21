@@ -143,7 +143,7 @@
 
 		        <md-input-container class="md-block">
 		            <label>State</label>
-		            <md-select ng-model="user.state">
+		            <md-select ng-model="user.state" ng-disabled="disabled">
 		                <md-option ng-repeat="state in [{ abbrev: 'CA' }, { abbrev: 'NY' }]" value="{{state.abbrev}}">
 		                    {{state.abbrev}}
 		                </md-option>

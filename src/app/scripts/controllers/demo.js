@@ -15,7 +15,7 @@
 			$rootScope.permissions[ACL.PERMISSION_PROFILE] = ACL.ACCESS_READ;
 		}
 
-	    $scope.text = '';
+	    $scope.disabled = false;
 
 	    $scope.login = function() {
 	        $location.path("/demo/login")
