@@ -85,6 +85,10 @@
             		$scope.access = FSACL.ACCESS_ADMIN;
             	}
 
+            	if(!$scope.access) {
+            		$scope.access = FSACL.ACCESS_READ;
+            	}
+
             	if('fsReadOnly' in attr || 'fsWriteOnly' in attr || 'fsAdminOnly' in attr) {
             		options.inheritAccess = false;
             	}

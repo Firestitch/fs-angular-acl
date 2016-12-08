@@ -184,7 +184,7 @@
         		return true;
         	}
 
-            var items = service.permissions();
+            var items = service.permissions() || [];
             var perm;
             var has_permission = false;
 
