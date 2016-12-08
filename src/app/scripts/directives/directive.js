@@ -48,17 +48,17 @@
     /**
      * @ngdoc directive
      * @name fs.directives:fs-acl
-     * @restrict E
+     * @restrict A
      * @param {string} fs-acl The permission to validate against
      * @param {string} fs-permission The permission to validate against
      * @param {string} fs-state The state name that is used to search for the state which has the permissions to validate against
      * @param {string} fs-url The url that is used to search for the state which has the permissions to validate against
-     * @param {string} fs-read When specified the access level will check if has read access
-     * @param {string} fs-write When specified the access level will check if has write access
-     * @param {string} fs-admin When specified the access level will check if has admin access
-     * @param {string} fs-read-only When specified the access level will check for read access only
-     * @param {string} fs-write-only When specified the access level will check for write access only
-     * @param {string} fs-admin-only When specified the access level will check for admin access only
+     * @param {bool} fs-read When specified the access level will check if has read access
+     * @param {bool} fs-write When specified the access level will check if has write access
+     * @param {bool} fs-admin When specified the access level will check if has admin access
+     * @param {bool} fs-read-only When specified the access level will check for read access only
+     * @param {bool} fs-write-only When specified the access level will check for write access only
+     * @param {bool} fs-admin-only When specified the access level will check for admin access only
      */
     .directive('fsAcl', function (fsAcl, FSACL) {
         return {
