@@ -19,14 +19,10 @@
                 var guid = fsUtil.guid();
 
 	           	angular.forEach(element[0].querySelectorAll('textarea,input,md-select,md-checkbox,md-radio-button,md-datepicker,md-button,fs-time'),function(el) {
-
-	           		var disabled = 'fsAclContainerDisabled["' + guid + '"]';
-
-	           		if(angular.element(el).attr('ng-disabled')) {
-	           			disabled += ' && ' + angular.element(el).attr('ng-disabled');
+	           		if(angular.element(el).attr('ng-disabled')===undefined) {
+	           			var disabled = 'fsAclContainerDisabled["' + guid + '"]';
+	           			angular.element(el).attr('ng-disabled',disabled);
 	           		}
-
-	           		angular.element(el).attr('ng-disabled',disabled);
 	           	});
 
 	           	return function ($scope, element, attrs, ctrl, transclude) {
