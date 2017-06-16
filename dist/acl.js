@@ -147,7 +147,6 @@
             isLoggedIn: null,
             loggedInFail: null,
             requireFail: null,
-
             loggedIn: loggedIn,
             loggedOut: loggedOut,
             require: require,
@@ -260,22 +259,29 @@
 	        return null;
     	}
 
-        function require(promise, requested) {
+        function require(object, requested) {
 
-            var defer = $q.defer();
+        	return $q(function(resolve) {
 
-            promise.then(function(response) {
+        		if(object && object.then) {
+		            object.then(function(response) {
 
-                if(response) {
-                    defer.resolve(response);
-                    return;
-                }
+		                if(response) {
+		                    return resolve(response);
+		                }
 
-                service.requireFail(requested);
+		                service.requireFail(requested);
+		            });
+		        } else {
+
+	        		if(!object)
+	        			return service.requireFail(requested);
+
+	        		resolve(object);
+		        }
             });
-
-            return defer.promise;
         }
+
 
         /**
          * @ngdoc method
